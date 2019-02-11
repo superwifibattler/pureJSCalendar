@@ -204,12 +204,16 @@ var pureJSCalendar = (function () {
         //}
 
         for (i = 0; i < calendar.length; i++) {
-            calendar[i] = '<tr><td class="eformDay" onclick="pureJSCalendar.dayClick(this)">' + calendar[i].join('</td><td class="eformDay" onclick="pureJSCalendar.dayClick(this)">') + '</td></tr>';
+            calendar[i] = '<tr><td class="eformDay">' + calendar[i].join('</td><td class="eformDay">') + '</td></tr>';
         }        
 
         const calendarInnerHtml = calendar.join('');
         calendar = document.createElement('table', { class: 'curr' });
         calendar.innerHTML = calendarInnerHtml;
+        var tdArray = calendar.getElementsByClassName("eformDay");
+        Array.prototype.forEach.call(tdArray, function(td) {
+            td.onclick = function() {dayClick (this) };
+        });
         const tdEmty = calendar.querySelectorAll('td:empty');
         for (var i = 0; i < tdEmty.length; ++i) {
             tdEmty[i].classList.add('nil');
